@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+	<bean id="wxAccountDao" class="net.ozsofts.core.db.query.QueryDao">
+		<constructor-arg value="net.ozsofts.wechat.core.entity.WxAccount" />
+	</bean>
+	<bean id="wxGroupDao" class="net.ozsofts.core.db.query.QueryDao">
+		<constructor-arg value="net.ozsofts.wechat.core.entity.WxGroup" />
+	</bean>
+	<bean id="wxMessageDao" class="net.ozsofts.core.db.query.QueryDao">
+		<constructor-arg value="net.ozsofts.wechat.core.entity.WxMessage" />
+	</bean>
+	<bean id="wxXmlmessageDao" class="net.ozsofts.core.db.query.QueryDao">
+		<constructor-arg value="net.ozsofts.wechat.core.entity.WxXmlmessage" />
+	</bean>
+	<bean id="wxRespMessageDao" class="net.ozsofts.core.db.query.QueryDao">
+		<constructor-arg value="net.ozsofts.wechat.core.entity.WxRespMessage" />
+	</bean>
+	<bean id="wxRuleDao" class="net.ozsofts.core.db.query.QueryDao">
+		<constructor-arg value="net.ozsofts.wechat.core.entity.WxRule" />
+	</bean>
+	<bean id="wxUserDao" class="net.ozsofts.core.db.query.QueryDao">
+		<constructor-arg value="net.ozsofts.wechat.core.entity.WxUser" />
+	</bean>
+
+</beans>

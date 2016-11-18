@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	<bean id="applicationContextHolder" class="net.ozsofts.core.common.context.ApplicationContextHolder" />
+
+	<import resource="classpath:net/ozsofts/wechat/core/spring-wechat-dao.xml"></import>
+
+	<!-- 扫描wechat相关的manager -->
+	<context:component-scan base-package="net.ozsofts.wechat.core.manager.impl" />
+
+	<bean name="commonMessageListener"
+		class="net.ozsofts.wechat.service.message.CommonMessageListener" />
+
+	<bean name="accountService" class="net.ozsofts.wechat.service.impl.AccountServiceImpl" />
+	<bean name="messageService" class="net.ozsofts.wechat.service.impl.MessageServiceImpl" init-method="initialize">
+		<property name="commonMessageListenerList">
+			<list>
+				<ref local="commonMessageListener" />
+			</list>
+		</property>
+	</bean>
+	<bean name="tokenService" class="net.ozsofts.wechat.service.impl.TokenServiceImpl" init-method="initialize" />
+	<bean name="wechatCommService" class="net.ozsofts.wechat.service.impl.WechatCommServiceImpl" />
+
+	<bean name="customFunction" class="net.ozsofts.wechat.functions.impl.CustomFunctionImpl" />
+	<bean name="groupFunction" class="net.ozsofts.wechat.functions.impl.GroupFunctionImpl" />
+	<bean name="materialFunction"
+		class="net.ozsofts.wechat.functions.impl.MaterialFunctionImpl" />
+	<bean name="mediaFunction" class="net.ozsofts.wechat.functions.impl.MediaFunctionImpl" />
+	<bean name="menuFunction" class="net.ozsofts.wechat.functions.impl.MenuFunctionImpl" />
+	<bean name="tokenFunction" class="net.ozsofts.wechat.functions.impl.TokenFunctionImpl" />
+	<bean name="userToken" class="net.ozsofts.wechat.functions.impl.UserFunctionImpl" />
+</beans>

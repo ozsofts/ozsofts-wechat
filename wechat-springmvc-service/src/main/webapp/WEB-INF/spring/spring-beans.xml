@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	<bean id="applicationContextHolder" class="com.yyd.core.common.context.ApplicationContextHolder" />
+
+	<import resource="classpath:com/yyd/wyd/core/wechat/spring-wechat-dao.xml"></import>
+	<import resource="classpath:com/yyd/wyd/service/spring-core-services.xml"></import>
+
+	<!-- 扫描wyd-core的manager -->
+	<context:component-scan base-package="com.yyd.wyd.core.wechat.manager.impl" />
+
+	<bean name="commonMessageListener" class="com.yyd.wyd.service.wechat.service.message.CommonMessageListener" />
+	<bean name="userListener" class="com.yyd.wyd.service.wechat.service.message.UserListener" />
+
+	<bean name="accountService" class="com.yyd.wyd.service.wechat.service.impl.AccountServiceImpl" />
+	<bean name="userService" class="com.yyd.wyd.service.wechat.service.impl.UserServiceImpl" />
+	<bean name="messageService" class="com.yyd.wyd.service.wechat.service.impl.MessageServiceImpl" init-method="initialize">
+		<property name="commonMessageListenerList">
+			<list>
+				<ref local="commonMessageListener" />
+				<ref local="userListener" />
+			</list>
+		</property>
+	</bean>
+	<!-- bean name="tokenService" class="com.yyd.wyd.service.wechat.service.impl.TokenServiceImpl" init-method="initialize" / -->
+	<bean name="tokenService" class="com.yyd.wyd.service.wechat.service.impl.QichengTokenServiceImpl" />
+	<bean name="wechatCommService" class="com.yyd.wyd.service.wechat.service.impl.WechatCommServiceImpl" />
+
+
+	<bean name="customFunction" class="com.yyd.wyd.service.wechat.functions.impl.CustomFunctionImpl" />
+	<bean name="groupFunction" class="com.yyd.wyd.service.wechat.functions.impl.GroupFunctionImpl" />
+	<bean name="materialFunction" class="com.yyd.wyd.service.wechat.functions.impl.MaterialFunctionImpl" />
+	<bean name="mediaFunction" class="com.yyd.wyd.service.wechat.functions.impl.MediaFunctionImpl" />
+	<bean name="menuFunction" class="com.yyd.wyd.service.wechat.functions.impl.MenuFunctionImpl" />
+	<bean name="tokenFunction" class="com.yyd.wyd.service.wechat.functions.impl.TokenFunctionImpl" />
+	<bean name="userToken" class="com.yyd.wyd.service.wechat.functions.impl.UserFunctionImpl" />
+</beans>

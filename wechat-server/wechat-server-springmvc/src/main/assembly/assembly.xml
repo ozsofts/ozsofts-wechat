@@ -1,0 +1,100 @@
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+
+	<id>bin</id>
+	<formats>
+		<format>zip</format>
+	</formats>
+
+	<fileSets>
+		<!-- Source Code -->
+		<fileSet>
+			<excludes>
+				<exclude>**/src/**</exclude>
+				<exclude>**/target/**</exclude>
+				<exclude>**/.*/**</exclude>
+				<exclude>**/*.xml</exclude>
+			</excludes>
+		</fileSet>
+
+		<!-- Jetty Files -->
+		<fileSet>
+			<directory>src/main/assembly/jetty</directory>
+			<outputDirectory>/</outputDirectory>
+			<includes>
+				<include>*.*</include>
+			</includes>
+		</fileSet>
+		<fileSet>
+			<directory>src/main/assembly/jetty/etc</directory>
+			<outputDirectory>etc</outputDirectory>
+			<includes>
+				<include>*.*</include>
+			</includes>
+		</fileSet>
+		<fileSet>
+			<directory>src/main/assembly/jetty/lib</directory>
+			<outputDirectory>lib</outputDirectory>
+			<includes>
+				<include>*.*</include>
+			</includes>
+		</fileSet>
+		<fileSet>
+			<directory>src/main/assembly/jetty/logs</directory>
+			<outputDirectory>logs</outputDirectory>
+			<filtered>false</filtered>
+		</fileSet>
+		<fileSet>
+			<directory>src/main/assembly/jetty/contexts</directory>
+			<outputDirectory>contexts</outputDirectory>
+			<includes>
+				<include>*.*</include>
+			</includes>
+			<filtered>true</filtered>
+		</fileSet>
+		<fileSet>
+			<directory>src/main/assembly/jetty/bin</directory>
+			<outputDirectory>bin</outputDirectory>
+			<includes>
+				<include>*.sh</include>
+			</includes>
+			<fileMode>0755</fileMode>
+			<filtered>true</filtered>
+		</fileSet>
+
+		<fileSet>
+			<directory>src/main/webapp/WEB-INF/classes</directory>
+			<outputDirectory>webapps/${artifactId}/WEB-INF/classes</outputDirectory>
+			<includes>
+				<include>*.xml</include>
+				<include>*.properties</include>
+			</includes>
+		</fileSet>
+		<fileSet>
+			<directory>src/main/webapp/WEB-INF/spring</directory>
+			<outputDirectory>webapps/${artifactId}/WEB-INF/spring</outputDirectory>
+			<includes>
+				<include>*.xml</include>
+				<include>*.properties</include>
+			</includes>
+		</fileSet>
+		<fileSet>
+			<directory>src/main/webapp/WEB-INF</directory>
+			<outputDirectory>webapps/${artifactId}/WEB-INF</outputDirectory>
+			<includes>
+				<include>*.xml</include>
+			</includes>
+		</fileSet>
+	</fileSets>
+
+	<!-- JARs -->
+	<dependencySets>
+		<dependencySet>
+			<unpack>false</unpack>
+			<outputDirectory>webapps/${artifactId}/WEB-INF/lib</outputDirectory>
+			<useTransitiveFiltering>true</useTransitiveFiltering>
+			<useStrictFiltering>true</useStrictFiltering>
+			<fileMode>666</fileMode>
+		</dependencySet>
+	</dependencySets>
+</assembly>
